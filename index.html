@@ -1,0 +1,2717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AurumVault Logistics | Elite Bullion Shipping Worldwide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #08090b;
+            --ink-2: #0e1015;
+            --ink-3: #151820;
+            --ink-4: #1c2030;
+            --ink-5: #242840;
+            --gold-deep: #7a5c1e;
+            --gold: #b8892a;
+            --gold-mid: #d4a843;
+            --gold-light: #e8c060;
+            --gold-pale: #f2d98a;
+            --gold-shimmer: #faefc4;
+            --cream: #f8f2e6;
+            --cream-2: #ede5d4;
+            --cream-3: #d4c9b4;
+            --ash: #8a8478;
+            --ash-2: #5e5a52;
+            --ash-3: #3a3830;
+            --white: #fdfcfa;
+            --success: #2d8a4e;
+            --success-light: #52b87a;
+            --amber: #c87c1a;
+            --ff-serif: 'Cormorant Garamond', Georgia, serif;
+            --ff-sans: 'Syne', sans-serif;
+            --ff-mono: 'DM Mono', monospace;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--ff-sans);
+            background: var(--ink);
+            color: var(--cream);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ─── CUSTOM CURSOR ─── */
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--gold-light);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s, opacity 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 168, 67, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out),
+                left 0.1s, top 0.1s, border-color 0.3s, opacity 0.3s;
+        }
+
+        .cursor-ring.hovering {
+            width: 64px;
+            height: 64px;
+            border-color: var(--gold-mid);
+            background: rgba(212, 168, 67, 0.05);
+        }
+
+        body * {
+            cursor: none;
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--ink);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-deep);
+            border-radius: 4px;
+        }
+
+        /* ─── PAGE LOADER ─── */
+        .loader {
+            position: fixed;
+            inset: 0;
+            z-index: 90000;
+            background: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+            transition: opacity 0.8s var(--ease-in-out), visibility 0.8s;
+        }
+
+        .loader.done {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            font-family: var(--ff-serif);
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold-pale);
+            opacity: 0;
+            animation: loader-text 1.2s var(--ease-out) 0.3s forwards;
+        }
+
+        @keyframes loader-text {
+            from {
+                opacity: 0;
+                transform: translateY(20px) letterSpacing(0.8em);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loader-bar-wrap {
+            width: 200px;
+            height: 1px;
+            background: var(--ash-3);
+            overflow: hidden;
+        }
+
+        .loader-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--gold-deep), var(--gold-pale), var(--gold-deep));
+            background-size: 200%;
+            animation: loader-fill 1.6s var(--ease-out) 0.4s forwards,
+                loader-shimmer 1s linear 0.4s infinite;
+        }
+
+        @keyframes loader-fill {
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes loader-shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* ─── NOISE OVERLAY ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.028;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 256px;
+        }
+
+        /* ─── HEADER ─── */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 5000;
+            padding: 0 48px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.5s, backdrop-filter 0.5s, border-color 0.5s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .header.scrolled {
+            background: rgba(8, 9, 11, 0.92);
+            backdrop-filter: blur(24px);
+            border-bottom-color: rgba(184, 137, 42, 0.12);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: var(--cream);
+        }
+
+        .logo-emblem {
+            position: relative;
+            width: 46px;
+            height: 46px;
+        }
+
+        .logo-emblem svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-family: var(--ff-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            line-height: 1;
+            color: var(--gold-pale);
+        }
+
+        .logo-tagline {
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ash);
+            margin-top: 2px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .nav a {
+            font-family: var(--ff-sans);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ash);
+            padding: 10px 18px;
+            border-radius: 2px;
+            transition: color 0.25s, background 0.25s;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            right: 50%;
+            height: 1px;
+            background: var(--gold-mid);
+            transition: left 0.3s var(--ease-out), right 0.3s var(--ease-out);
+        }
+
+        .nav a:hover {
+            color: var(--gold-pale);
+        }
+
+        .nav a:hover::after {
+            left: 18px;
+            right: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-track-header {
+            background: none;
+            border: 1px solid rgba(184, 137, 42, 0.4);
+            color: var(--gold-light);
+            padding: 10px 24px;
+            font-family: var(--ff-sans);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-track-header:hover {
+            background: rgba(184, 137, 42, 0.1);
+            border-color: var(--gold-mid);
+            box-shadow: 0 0 24px rgba(184, 137, 42, 0.2);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--cream);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: var(--ink);
+        }
+
+        /* Gold mesh background */
+        .hero-mesh {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 60% 80% at 70% 50%, rgba(184, 137, 42, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 60% at 20% 80%, rgba(120, 90, 28, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 40% at 50% 0%, rgba(212, 168, 67, 0.03) 0%, transparent 50%);
+        }
+
+        /* Architectural line grid */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(184, 137, 42, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(184, 137, 42, 0.04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse 80% 80% at 60% 50%, black 0%, transparent 70%);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 160px 80px 120px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 80px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+
+        .hero-eyebrow-line {
+            width: 48px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-mid));
+        }
+
+        .hero-eyebrow-text {
+            font-size: 0.64rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold-mid);
+        }
+
+        .hero-eyebrow-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--success-light);
+            animation: pulse-green 2.5s ease-in-out infinite;
+            box-shadow: 0 0 8px var(--success-light);
+        }
+
+        @keyframes pulse-green {
+
+            0%,
+            100% {
+                box-shadow: 0 0 6px var(--success-light);
+            }
+
+            50% {
+                box-shadow: 0 0 20px var(--success-light), 0 0 40px rgba(82, 184, 122, 0.3);
+            }
+        }
+
+        .hero-eyebrow-live {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--success-light);
+        }
+
+        .hero-headline {
+            font-family: var(--ff-serif);
+            font-size: clamp(3.5rem, 6vw, 6.5rem);
+            font-weight: 300;
+            line-height: 0.95;
+            letter-spacing: -0.01em;
+            color: var(--white);
+            margin-bottom: 32px;
+        }
+
+        .hero-headline em {
+            font-style: italic;
+            color: var(--gold-light);
+            font-weight: 300;
+        }
+
+        .hero-headline .hero-headline-sub {
+            display: block;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            color: var(--gold-pale);
+        }
+
+        .hero-desc {
+            font-family: var(--ff-sans);
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.8;
+            color: var(--ash);
+            max-width: 420px;
+            margin-bottom: 48px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta-primary {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold-mid) 50%, var(--gold-deep) 100%);
+            background-size: 200%;
+            color: var(--ink);
+            border: none;
+            padding: 18px 40px;
+            font-family: var(--ff-sans);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background-position 0.5s, box-shadow 0.4s, transform 0.3s;
+            box-shadow: 0 8px 32px rgba(184, 137, 42, 0.3);
+        }
+
+        .btn-cta-primary:hover {
+            background-position: 100%;
+            box-shadow: 0 16px 48px rgba(184, 137, 42, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-cta-ghost {
+            background: none;
+            border: none;
+            font-family: var(--ff-sans);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ash);
+            cursor: pointer;
+            padding: 18px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-cta-ghost:hover {
+            color: var(--gold-pale);
+        }
+
+        .btn-cta-ghost .arrow {
+            width: 32px;
+            height: 1px;
+            background: currentColor;
+            position: relative;
+            transition: width 0.3s var(--ease-out);
+        }
+
+        .btn-cta-ghost .arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 6px;
+            height: 6px;
+            border-right: 1px solid currentColor;
+            border-top: 1px solid currentColor;
+        }
+
+        .btn-cta-ghost:hover .arrow {
+            width: 48px;
+        }
+
+        /* Hero right panel — stats */
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .hero-stat-row {
+            border-top: 1px solid rgba(184, 137, 42, 0.12);
+            padding: 28px 0;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .hero-stat-row:last-child {
+            border-bottom: 1px solid rgba(184, 137, 42, 0.12);
+        }
+
+        .hero-stat-row:hover {
+            background: rgba(184, 137, 42, 0.02);
+        }
+
+        .hero-stat-num {
+            font-family: var(--ff-serif);
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--gold-light);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-stat-plus {
+            color: var(--gold-deep);
+            font-weight: 300;
+        }
+
+        .hero-stat-info {}
+
+        .hero-stat-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--cream-2);
+            margin-bottom: 4px;
+        }
+
+        .hero-stat-desc {
+            font-size: 0.75rem;
+            color: var(--ash);
+            line-height: 1.5;
+        }
+
+        /* hero bottom bar */
+        .hero-bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-top: 1px solid rgba(184, 137, 42, 0.08);
+            background: rgba(8, 9, 11, 0.6);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: stretch;
+            z-index: 10;
+        }
+
+        .hero-bottom-item {
+            flex: 1;
+            padding: 18px 32px;
+            border-right: 1px solid rgba(184, 137, 42, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .hero-bottom-item:last-child {
+            border-right: none;
+        }
+
+        .hero-bottom-icon {
+            opacity: 0.7;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-mid);
+        }
+
+        .hero-bottom-text {}
+
+        .hero-bottom-title {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--cream-3);
+        }
+
+        .hero-bottom-sub {
+            font-size: 0.64rem;
+            color: var(--ash-2);
+            margin-top: 2px;
+        }
+
+        /* ─── MARQUEE ─── */
+        .marquee-section {
+            border-top: 1px solid rgba(184, 137, 42, 0.1);
+            border-bottom: 1px solid rgba(184, 137, 42, 0.1);
+            padding: 20px 0;
+            overflow: hidden;
+            background: rgba(184, 137, 42, 0.02);
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 0;
+            animation: marquee 28s linear infinite;
+            width: max-content;
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 0 48px;
+            white-space: nowrap;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ash-2);
+        }
+
+        .marquee-item .sep {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gold-deep);
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ─── SERVICES ─── */
+        .services-section {
+            padding: 140px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 80px;
+            gap: 40px;
+        }
+
+        .section-label-wrap {}
+
+        .section-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold-mid);
+            margin-bottom: 16px;
+        }
+
+        .section-eyebrow-line {
+            width: 32px;
+            height: 1px;
+            background: var(--gold-mid);
+        }
+
+        .section-title {
+            font-family: var(--ff-serif);
+            font-size: clamp(2.4rem, 4vw, 4rem);
+            font-weight: 300;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            color: var(--white);
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .section-desc {
+            max-width: 320px;
+            font-size: 0.82rem;
+            color: var(--ash);
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+            text-align: right;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 1px;
+            background: rgba(184, 137, 42, 0.1);
+            border: 1px solid rgba(184, 137, 42, 0.1);
+        }
+
+        .svc-card {
+            background: var(--ink-2);
+            padding: 48px 40px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .svc-card:hover {
+            background: var(--ink-3);
+        }
+
+        .svc-card-featured {
+            grid-column: span 2;
+            background: var(--ink-3);
+        }
+
+        .svc-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 0% 0%, rgba(184, 137, 42, 0.08) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .svc-card:hover::before {
+            opacity: 1;
+        }
+
+        .svc-num {
+            font-family: var(--ff-mono);
+            font-size: 0.6rem;
+            color: var(--ash-3);
+            letter-spacing: 0.2em;
+            margin-bottom: 32px;
+        }
+
+        .svc-icon {
+            width: 52px;
+            height: 52px;
+            border: 1px solid rgba(184, 137, 42, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: rgba(184, 137, 42, 0.04);
+            color: var(--gold-mid);
+            flex-shrink: 0;
+        }
+
+        .svc-card:hover .svc-icon {
+            border-color: var(--gold-mid);
+            box-shadow: 0 0 32px rgba(184, 137, 42, 0.2);
+        }
+
+        .svc-title {
+            font-family: var(--ff-serif);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--cream);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .svc-desc {
+            font-size: 0.78rem;
+            color: var(--ash);
+            line-height: 1.75;
+            flex: 1;
+            margin-bottom: 24px;
+        }
+
+        .svc-tag {
+            align-self: flex-start;
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold-deep);
+            border: 1px solid rgba(184, 137, 42, 0.2);
+            padding: 6px 14px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .svc-card:hover .svc-tag {
+            color: var(--gold-light);
+            border-color: rgba(184, 137, 42, 0.4);
+        }
+
+        /* ─── CERTIFICATIONS / TRUST BAND ─── */
+        .trust-section {
+            padding: 0 80px 100px;
+        }
+
+        .trust-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            border: 1px solid rgba(184, 137, 42, 0.1);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .trust-item {
+            padding: 40px 36px;
+            border-right: 1px solid rgba(184, 137, 42, 0.1);
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .trust-item:last-child {
+            border-right: none;
+        }
+
+        .trust-item:hover {
+            background: rgba(184, 137, 42, 0.03);
+        }
+
+        .trust-num {
+            font-family: var(--ff-serif);
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--gold-light);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .trust-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ash-2);
+        }
+
+        /* ─── ABOUT / MANIFESTO SECTION ─── */
+        .about-section {
+            position: relative;
+            overflow: hidden;
+            padding: 120px 80px;
+            background: var(--ink-2);
+            border-top: 1px solid rgba(184, 137, 42, 0.08);
+            border-bottom: 1px solid rgba(184, 137, 42, 0.08);
+        }
+
+        .about-bg-text {
+            position: absolute;
+            font-family: var(--ff-serif);
+            font-size: 22vw;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(184, 137, 42, 0.04);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: 0.08em;
+            user-select: none;
+        }
+
+        .about-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-content {}
+
+        .about-quote {
+            font-family: var(--ff-serif);
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            font-weight: 300;
+            line-height: 1.3;
+            color: var(--white);
+            margin-bottom: 32px;
+        }
+
+        .about-quote em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .about-body {
+            font-size: 0.82rem;
+            color: var(--ash);
+            line-height: 1.8;
+            max-width: 420px;
+        }
+
+        .about-certifications {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .cert-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 28px;
+            border: 1px solid rgba(184, 137, 42, 0.1);
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .cert-row:hover {
+            border-color: rgba(184, 137, 42, 0.3);
+            background: rgba(184, 137, 42, 0.03);
+        }
+
+        .cert-icon {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            color: var(--gold-mid);
+            opacity: 0.85;
+        }
+
+        .cert-info {}
+
+        .cert-name {
+            font-family: var(--ff-mono);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--cream-2);
+            margin-bottom: 2px;
+        }
+
+        .cert-desc {
+            font-size: 0.7rem;
+            color: var(--ash);
+        }
+
+        /* ─── CTA SECTION ─── */
+        .cta-section {
+            padding: 140px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold-mid);
+            margin-bottom: 40px;
+        }
+
+        .cta-eyebrow-line {
+            width: 32px;
+            height: 1px;
+            background: var(--gold-mid);
+        }
+
+        .cta-headline {
+            font-family: var(--ff-serif);
+            font-size: clamp(3rem, 5vw, 5.5rem);
+            font-weight: 300;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+
+        .cta-headline em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .cta-sub {
+            font-size: 0.88rem;
+            color: var(--ash);
+            max-width: 480px;
+            margin: 0 auto 52px;
+            line-height: 1.75;
+        }
+
+        .cta-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta-large {
+            background: linear-gradient(135deg, var(--gold-deep), var(--gold-mid));
+            color: var(--ink);
+            border: none;
+            padding: 20px 52px;
+            font-family: var(--ff-sans);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: box-shadow 0.4s, transform 0.3s;
+            box-shadow: 0 8px 40px rgba(184, 137, 42, 0.35);
+        }
+
+        .btn-cta-large:hover {
+            box-shadow: 0 20px 60px rgba(184, 137, 42, 0.55);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline-large {
+            background: none;
+            border: 1px solid rgba(184, 137, 42, 0.3);
+            color: var(--gold-light);
+            padding: 20px 52px;
+            font-family: var(--ff-sans);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline-large:hover {
+            background: rgba(184, 137, 42, 0.08);
+            border-color: var(--gold-mid);
+            box-shadow: 0 8px 32px rgba(184, 137, 42, 0.15);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid rgba(184, 137, 42, 0.1);
+            background: var(--ink-2);
+        }
+
+        .footer-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 72px 80px 56px;
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand .footer-logo-name {
+            font-family: var(--ff-serif);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--gold-pale);
+            margin-bottom: 4px;
+            letter-spacing: 0.06em;
+        }
+
+        .footer-brand .footer-logo-tag {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--ash-2);
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .footer-brand-desc {
+            font-size: 0.78rem;
+            color: var(--ash);
+            line-height: 1.75;
+            max-width: 280px;
+        }
+
+        .footer-col {}
+
+        .footer-col-title {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--cream-2);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(184, 137, 42, 0.1);
+        }
+
+        .footer-col a {
+            display: block;
+            text-decoration: none;
+            font-size: 0.78rem;
+            color: var(--ash);
+            padding: 6px 0;
+            letter-spacing: 0.04em;
+            transition: color 0.25s;
+        }
+
+        .footer-col a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-col p {
+            font-size: 0.78rem;
+            color: var(--ash);
+            line-height: 1.7;
+            padding: 2px 0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(184, 137, 42, 0.08);
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-bottom-left {
+            font-size: 0.68rem;
+            color: var(--ash-3);
+            letter-spacing: 0.06em;
+        }
+
+        .footer-bottom-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--ff-mono);
+            font-size: 0.6rem;
+            color: var(--ash-3);
+        }
+
+        .status-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--success-light);
+            animation: pulse-green 2.5s ease-in-out infinite;
+        }
+
+        /* ─── MODAL ─── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50000;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.4s, visibility 0.4s;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-box {
+            background: var(--ink-2);
+            border: 1px solid rgba(184, 137, 42, 0.15);
+            width: 100%;
+            max-width: 720px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(32px);
+            transition: transform 0.5s var(--ease-out);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 40px 40px 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(184, 137, 42, 0.1);
+            padding-bottom: 28px;
+            margin-bottom: 32px;
+        }
+
+        .modal-title {
+            font-family: var(--ff-serif);
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--cream);
+            letter-spacing: 0.02em;
+        }
+
+        .modal-subtitle {
+            font-size: 0.7rem;
+            color: var(--ash);
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ash);
+            cursor: pointer;
+            font-size: 1.4rem;
+            border-radius: 2px;
+            flex-shrink: 0;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--cream);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-body {
+            padding: 0 40px 40px;
+        }
+
+        .track-form-area {
+            margin-bottom: 16px;
+        }
+
+        .track-hint {
+            font-size: 0.68rem;
+            color: var(--ash-2);
+            letter-spacing: 0.06em;
+            margin-bottom: 12px;
+        }
+
+        .track-hint .demo-code {
+            font-family: var(--ff-mono);
+            color: var(--gold-mid);
+            background: rgba(184, 137, 42, 0.08);
+            padding: 2px 8px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            border: 1px solid rgba(184, 137, 42, 0.15);
+            font-size: 0.66rem;
+        }
+
+        .track-hint .demo-code:hover {
+            background: rgba(184, 137, 42, 0.16);
+            color: var(--gold-light);
+        }
+
+        .track-input-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .track-input-wrap {
+            flex: 1;
+            position: relative;
+        }
+
+        .track-input {
+            width: 100%;
+            background: var(--ink);
+            border: 1px solid rgba(184, 137, 42, 0.15);
+            color: var(--cream);
+            outline: none;
+            padding: 16px 50px 16px 20px;
+            font-family: var(--ff-mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            caret-color: var(--gold-mid);
+        }
+
+        .track-input:focus {
+            border-color: rgba(184, 137, 42, 0.5);
+            box-shadow: 0 0 0 4px rgba(184, 137, 42, 0.05);
+        }
+
+        .track-input::placeholder {
+            font-family: var(--ff-sans);
+            font-size: 0.8rem;
+            color: var(--ash-2);
+            letter-spacing: 0.04em;
+        }
+
+        .track-input-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--ash-2);
+            pointer-events: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-track {
+            background: linear-gradient(135deg, var(--gold-deep), var(--gold-mid));
+            color: var(--ink);
+            border: none;
+            padding: 16px 32px;
+            font-family: var(--ff-sans);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: box-shadow 0.3s, transform 0.2s;
+        }
+
+        .btn-track:hover {
+            box-shadow: 0 8px 24px rgba(184, 137, 42, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .btn-track:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* modal loading */
+        .modal-loading {
+            display: none;
+            text-align: center;
+            padding: 48px 0;
+        }
+
+        .modal-loading.active {
+            display: block;
+        }
+
+        .loading-ring {
+            width: 48px;
+            height: 48px;
+            border: 2px solid rgba(184, 137, 42, 0.15);
+            border-top-color: var(--gold-mid);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 0.78rem;
+            color: var(--ash);
+            letter-spacing: 0.08em;
+        }
+
+        /* results */
+        .modal-results {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.7s var(--ease-in-out), opacity 0.5s;
+        }
+
+        .modal-results.visible {
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        .result-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(184, 137, 42, 0.1);
+            border: 1px solid rgba(184, 137, 42, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .result-meta-item {
+            background: var(--ink-3);
+            padding: 18px 20px;
+        }
+
+        .result-meta-label {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ash-2);
+            margin-bottom: 6px;
+        }
+
+        .result-meta-val {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--cream-2);
+        }
+
+        .result-meta-val.gold {
+            color: var(--gold-light);
+            font-family: var(--ff-mono);
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 2px;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .status-pill.transit {
+            background: rgba(200, 124, 26, 0.1);
+            color: var(--amber);
+            border: 1px solid rgba(200, 124, 26, 0.25);
+        }
+
+        .status-pill-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse-amber 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-amber {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* route svg */
+        .route-svg-wrap {
+            border: 1px solid rgba(184, 137, 42, 0.1);
+            background: var(--ink);
+            margin-bottom: 24px;
+            padding: 4px;
+        }
+
+        .route-svg-wrap svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* progress */
+        .progress-area {
+            margin-bottom: 28px;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--ash);
+            margin-bottom: 10px;
+        }
+
+        .progress-top .pct {
+            color: var(--gold-light);
+            font-family: var(--ff-mono);
+        }
+
+        .prog-track {
+            height: 3px;
+            background: rgba(184, 137, 42, 0.08);
+            position: relative;
+            overflow: visible;
+        }
+
+        .prog-fill {
+            height: 100%;
+            width: 55%;
+            background: linear-gradient(90deg, var(--gold-deep), var(--gold-light));
+            position: relative;
+            transition: width 1s var(--ease-out);
+        }
+
+        .prog-fill::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -3px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--gold-light);
+            box-shadow: 0 0 16px rgba(232, 192, 96, 0.8);
+        }
+
+        /* timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tl-step {
+            display: flex;
+            gap: 18px;
+            padding: 18px 0;
+            position: relative;
+        }
+
+        .tl-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 52px;
+            width: 1px;
+            height: calc(100% - 20px);
+            background: rgba(184, 137, 42, 0.08);
+        }
+
+        .tl-step.completed:not(:last-child)::after {
+            background: rgba(82, 184, 122, 0.3);
+        }
+
+        .tl-step.current:not(:last-child)::after {
+            background: linear-gradient(to bottom, rgba(200, 124, 26, 0.5), rgba(184, 137, 42, 0.08));
+        }
+
+        .tl-dot {
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(184, 137, 42, 0.15);
+            background: var(--ink);
+            color: var(--ash-2);
+            z-index: 1;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .tl-step.completed .tl-dot {
+            background: rgba(45, 138, 78, 0.1);
+            border-color: rgba(82, 184, 122, 0.4);
+            color: var(--success-light);
+        }
+
+        .tl-step.current .tl-dot {
+            background: rgba(200, 124, 26, 0.1);
+            border-color: rgba(200, 124, 26, 0.4);
+            color: var(--amber);
+            animation: pulse-ring 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-ring {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(200, 124, 26, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 12px rgba(200, 124, 26, 0);
+            }
+        }
+
+        .tl-content {
+            flex: 1;
+            padding-top: 5px;
+        }
+
+        .tl-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--cream-2);
+            margin-bottom: 2px;
+        }
+
+        .tl-step.pending .tl-title {
+            color: var(--ash-2);
+        }
+
+        .tl-step.current .tl-title {
+            color: var(--amber);
+        }
+
+        .tl-loc {
+            font-size: 0.72rem;
+            color: var(--ash);
+            margin-bottom: 2px;
+        }
+
+        .tl-time {
+            font-family: var(--ff-mono);
+            font-size: 0.65rem;
+            color: var(--ash-2);
+        }
+
+        .tl-eta {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            background: rgba(200, 124, 26, 0.1);
+            color: var(--amber);
+            border: 1px solid rgba(200, 124, 26, 0.2);
+            padding: 4px 12px;
+        }
+
+        /* notification */
+        .notif {
+            background: rgba(224, 85, 74, 0.08);
+            border: 1px solid rgba(224, 85, 74, 0.2);
+            color: #e0554a;
+            padding: 12px 18px;
+            font-size: 0.75rem;
+            margin-bottom: 14px;
+            text-align: center;
+            letter-spacing: 0.04em;
+            animation: fadeInDown 0.3s var(--ease-out);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── ANIMATIONS ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1100px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                padding: 140px 48px 100px;
+                gap: 48px;
+            }
+
+            .hero-right {
+                display: none;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .svc-card-featured {
+                grid-column: span 1;
+            }
+
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .trust-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .trust-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .trust-item:nth-child(3) {
+                border-right: 1px solid rgba(184, 137, 42, 0.1);
+            }
+
+            .trust-item:nth-child(4) {
+                border-right: none;
+            }
+
+            .trust-item:nth-child(1),
+            .trust-item:nth-child(2) {
+                border-bottom: 1px solid rgba(184, 137, 42, 0.1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 24px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .nav.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: rgba(8, 9, 11, 0.98);
+                backdrop-filter: blur(24px);
+                padding: 20px 24px;
+                border-bottom: 1px solid rgba(184, 137, 42, 0.1);
+                z-index: 4999;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero-inner {
+                padding: 120px 24px 80px;
+            }
+
+            .hero-headline {
+                font-size: 2.8rem;
+            }
+
+            .hero-bottom-bar {
+                display: none;
+            }
+
+            .services-section,
+            .trust-section,
+            .cta-section {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .section-desc {
+                text-align: left;
+                max-width: 100%;
+            }
+
+            .about-section {
+                padding: 80px 24px;
+            }
+
+            .cta-headline {
+                font-size: 2.5rem;
+            }
+
+            .modal-header {
+                padding: 28px 24px 0;
+            }
+
+            .modal-body {
+                padding: 0 24px 28px;
+            }
+
+            .track-input-row {
+                flex-direction: column;
+            }
+
+            .btn-track {
+                width: 100%;
+                text-align: center;
+                padding: 16px;
+            }
+
+            .result-meta-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-main {
+                padding: 40px 24px;
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                padding: 20px 24px;
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .trust-section {
+                padding: 0 24px 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-headline {
+                font-size: 2.2rem;
+            }
+
+            .hero-bottom-bar {
+                display: none;
+            }
+
+            .trust-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-item {
+                border-right: none !important;
+                border-bottom: 1px solid rgba(184, 137, 42, 0.1);
+            }
+
+            .result-meta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-logo">AurumVault</div>
+        <div class="loader-bar-wrap">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ══════════════════════ HEADER ══════════════════════ -->
+    <header class="header" id="header">
+        <a href="#home" class="logo">
+            <div class="logo-emblem">
+                <svg viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="44" height="44" stroke="#b8892a" stroke-width="1" />
+                    <rect x="5" y="5" width="36" height="36" stroke="#b8892a" stroke-width="0.5" stroke-opacity="0.4" />
+                    <path d="M23 10L34 36H12L23 10Z" fill="none" stroke="#d4a843" stroke-width="1.5" />
+                    <path d="M23 18L30 36H16L23 18Z" fill="rgba(184,137,42,0.15)" />
+                    <circle cx="23" cy="10" r="2.5" fill="#e8c060" />
+                    <circle cx="12" cy="36" r="2" fill="#b8892a" />
+                    <circle cx="34" cy="36" r="2" fill="#b8892a" />
+                </svg>
+            </div>
+            <div class="logo-text-wrap">
+                <span class="logo-name">AurumVault</span>
+                <span class="logo-tagline">Elite Bullion Logistics</span>
+            </div>
+        </a>
+        <nav class="nav" id="mainNav">
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="header-actions">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+                    <rect width="22" height="1.5" fill="currentColor" />
+                    <rect y="7.25" width="16" height="1.5" fill="currentColor" />
+                    <rect y="14.5" width="22" height="1.5" fill="currentColor" />
+                </svg>
+            </button>
+            <button class="btn-track-header" id="headerTrackBtn">Track Shipment</button>
+        </div>
+    </header>
+
+    <!-- ══════════════════════ HERO ══════════════════════ -->
+    <section class="hero" id="home">
+        <div class="hero-mesh"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-eyebrow reveal">
+                    <div class="hero-eyebrow-line"></div>
+                    <span class="hero-eyebrow-text">Global Operations</span>
+                    <span class="hero-eyebrow-dot"></span>
+                    <span class="hero-eyebrow-live">Live</span>
+                </div>
+                <h1 class="hero-headline reveal reveal-delay-1">
+                    The <em>Gold Standard</em><br>
+                    <span class="hero-headline-sub">in Bullion Logistics</span>
+                </h1>
+                <p class="hero-desc reveal reveal-delay-2">
+                    AurumVault delivers elite, high-security transportation for precious metals and heavy bullion
+                    shipments across the globe. From mine to vault — armored, insured, and monitored 24/7 with
+                    military-grade precision.
+                </p>
+                <div class="hero-actions reveal reveal-delay-3">
+                    <button class="btn-cta-primary" id="heroTrackBtn">Track Your Shipment</button>
+                    <a href="#services" class="btn-cta-ghost">
+                        <span class="arrow"></span>
+                        Explore Services
+                    </a>
+                </div>
+            </div>
+            <div class="hero-right reveal reveal-delay-2">
+                <div class="hero-stat-row">
+                    <div class="hero-stat-num">80<span class="hero-stat-plus">+</span></div>
+                    <div class="hero-stat-info">
+                        <div class="hero-stat-label">Countries Served</div>
+                        <div class="hero-stat-desc">Worldwide network spanning every major financial hub and
+                            gold-producing region</div>
+                    </div>
+                </div>
+                <div class="hero-stat-row">
+                    <div class="hero-stat-num">$42<span class="hero-stat-plus">B+</span></div>
+                    <div class="hero-stat-info">
+                        <div class="hero-stat-label">Bullion Value Secured</div>
+                        <div class="hero-stat-desc">Precious metal cargo transported under full Lloyd's of London
+                            coverage</div>
+                    </div>
+                </div>
+                <div class="hero-stat-row">
+                    <div class="hero-stat-num">99.9<span style="font-size:1.8rem">%</span></div>
+                    <div class="hero-stat-info">
+                        <div class="hero-stat-label">On-Time Delivery Rate</div>
+                        <div class="hero-stat-desc">15,000+ successful shipments with zero loss incidents in 18 years of
+                            operation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bottom-bar">
+            <div class="hero-bottom-item">
+                <span class="hero-bottom-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.68 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 5.28 5.28l1.62-1.62a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.77 2.03z" />
+                        <path d="M12 2C6.48 2 2 6.48 2 12M12 2c3.31 0 6.32 1.34 8.5 3.5" />
+                        <path d="M17 7l3-3-3-3M20 4H8" />
+                    </svg></span>
+                <div class="hero-bottom-text">
+                    <div class="hero-bottom-title">Air Freight</div>
+                    <div class="hero-bottom-sub">Dedicated cargo aircraft, armored containers</div>
+                </div>
+            </div>
+            <div class="hero-bottom-item">
+                <span class="hero-bottom-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="3" width="15" height="13" rx="1" />
+                        <path d="M16 8h4l3 3v5h-7V8z" />
+                        <circle cx="5.5" cy="18.5" r="2.5" />
+                        <circle cx="18.5" cy="18.5" r="2.5" />
+                    </svg></span>
+                <div class="hero-bottom-text">
+                    <div class="hero-bottom-title">Ground Transport</div>
+                    <div class="hero-bottom-sub">Military-grade armored vehicles & convoys</div>
+                </div>
+            </div>
+            <div class="hero-bottom-item">
+                <span class="hero-bottom-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="2" />
+                        <path
+                            d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                    </svg></span>
+                <div class="hero-bottom-text">
+                    <div class="hero-bottom-title">Live Monitoring</div>
+                    <div class="hero-bottom-sub">Satellite tracking, 24/7 operations center</div>
+                </div>
+            </div>
+            <div class="hero-bottom-item">
+                <span class="hero-bottom-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        <circle cx="12" cy="16" r="1" fill="currentColor" />
+                    </svg></span>
+                <div class="hero-bottom-text">
+                    <div class="hero-bottom-title">Fully Insured</div>
+                    <div class="hero-bottom-sub">Lloyd's of London full-value coverage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ MARQUEE ══════════════════════ -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <!-- Set 1 -->
+            <div class="marquee-item">ISO 28000 Certified <span class="sep"></span></div>
+            <div class="marquee-item">LBMA Accredited <span class="sep"></span></div>
+            <div class="marquee-item">TAPA FSR Certified <span class="sep"></span></div>
+            <div class="marquee-item">IATA CEIV Certified <span class="sep"></span></div>
+            <div class="marquee-item">Lloyd's of London Insured <span class="sep"></span></div>
+            <div class="marquee-item">80+ Countries <span class="sep"></span></div>
+            <div class="marquee-item">15,000+ Shipments <span class="sep"></span></div>
+            <div class="marquee-item">$42B+ Secured <span class="sep"></span></div>
+            <div class="marquee-item">18 Years of Excellence <span class="sep"></span></div>
+            <!-- Set 2 (dupe for seamless) -->
+            <div class="marquee-item">ISO 28000 Certified <span class="sep"></span></div>
+            <div class="marquee-item">LBMA Accredited <span class="sep"></span></div>
+            <div class="marquee-item">TAPA FSR Certified <span class="sep"></span></div>
+            <div class="marquee-item">IATA CEIV Certified <span class="sep"></span></div>
+            <div class="marquee-item">Lloyd's of London Insured <span class="sep"></span></div>
+            <div class="marquee-item">80+ Countries <span class="sep"></span></div>
+            <div class="marquee-item">15,000+ Shipments <span class="sep"></span></div>
+            <div class="marquee-item">$42B+ Secured <span class="sep"></span></div>
+            <div class="marquee-item">18 Years of Excellence <span class="sep"></span></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════ SERVICES ══════════════════════ -->
+    <section class="services-section" id="services">
+        <div class="section-header reveal">
+            <div class="section-label-wrap">
+                <div class="section-eyebrow">
+                    <div class="section-eyebrow-line"></div>
+                    Core Capabilities
+                </div>
+                <h2 class="section-title">End-to-End Bullion<br><em>Logistics Solutions</em></h2>
+            </div>
+            <p class="section-desc">Comprehensive security transport for precious metals, gold bars, and high-value
+                commodities across the world's most demanding supply chains.</p>
+        </div>
+        <div class="services-grid">
+            <div class="svc-card svc-card-featured reveal">
+                <div class="svc-num">01</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                        <line x1="12" y1="22.08" x2="12" y2="12" />
+                    </svg></div>
+                <h3 class="svc-title">International Air Freight</h3>
+                <p class="svc-desc">Dedicated cargo aircraft with armored containers and real-time satellite tracking
+                    for transcontinental shipments. Our fleet operates on exclusive corridors approved by aviation
+                    authorities across 80+ nations, ensuring the fastest and most secure routes between major bullion
+                    markets worldwide.</p>
+                <span class="svc-tag">Global Reach</span>
+            </div>
+            <div class="svc-card reveal reveal-delay-1">
+                <div class="svc-num">02</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="3" width="15" height="13" rx="1" />
+                        <path d="M16 8h4l3 3v5h-7V8z" />
+                        <circle cx="5.5" cy="18.5" r="2.5" />
+                        <circle cx="18.5" cy="18.5" r="2.5" />
+                    </svg></div>
+                <h3 class="svc-title">Armored Ground Transport</h3>
+                <p class="svc-desc">Military-grade vehicles with dual-driver protocols, GPS geofencing, and secure
+                    convoy operations across every terrain.</p>
+                <span class="svc-tag">Land Security</span>
+            </div>
+            <div class="svc-card reveal reveal-delay-2">
+                <div class="svc-num">03</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" />
+                        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                        <line x1="12" y1="12" x2="12" y2="16" />
+                        <line x1="10" y1="14" x2="14" y2="14" />
+                    </svg></div>
+                <h3 class="svc-title">Vault-to-Vault Transfer</h3>
+                <p class="svc-desc">Seamless chain-of-custody transfers between major bullion depositories, central
+                    banks, and private vaults globally.</p>
+                <span class="svc-tag">Institutional Grade</span>
+            </div>
+            <div class="svc-card reveal">
+                <div class="svc-num">04</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                        <line x1="16" y1="17" x2="8" y2="17" />
+                        <polyline points="10 9 9 9 8 9" />
+                    </svg></div>
+                <h3 class="svc-title">Customs & Compliance</h3>
+                <p class="svc-desc">Expert handling of international customs clearance and precious metal regulatory
+                    compliance in every jurisdiction.</p>
+                <span class="svc-tag">Regulatory</span>
+            </div>
+            <div class="svc-card reveal reveal-delay-1">
+                <div class="svc-num">05</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="2" />
+                        <path
+                            d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                    </svg></div>
+                <h3 class="svc-title">24/7 Live Monitoring</h3>
+                <p class="svc-desc">Satellite-tracked shipments with tamper detection sensors and a dedicated global
+                    operations center, always active.</p>
+                <span class="svc-tag">Real-Time</span>
+            </div>
+            <div class="svc-card reveal reveal-delay-2">
+                <div class="svc-num">06</div>
+                <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg></div>
+                <h3 class="svc-title">Insurance & Risk Management</h3>
+                <p class="svc-desc">Comprehensive Lloyd's of London coverage with full-value protection on every route
+                    and every single shipment.</p>
+                <span class="svc-tag">Fully Insured</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ TRUST BAR ══════════════════════ -->
+    <div class="trust-section" id="about">
+        <div class="trust-inner reveal">
+            <div class="trust-item">
+                <div class="trust-num">$42B<span style="font-size:2rem;color:var(--gold-deep)">+</span></div>
+                <div class="trust-label">Bullion Transported</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-num">80<span style="font-size:2rem;color:var(--gold-deep)">+</span></div>
+                <div class="trust-label">Countries Served</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-num">15K<span style="font-size:2rem;color:var(--gold-deep)">+</span></div>
+                <div class="trust-label">Successful Shipments</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-num" style="font-size:2.2rem;letter-spacing:0.02em">ISO<br>28000</div>
+                <div class="trust-label">Security Certified</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════ ABOUT ══════════════════════ -->
+    <section class="about-section">
+        <div class="about-bg-text">AURUM</div>
+        <div class="about-inner">
+            <div class="about-content reveal">
+                <div class="section-eyebrow" style="margin-bottom:24px;">
+                    <div class="section-eyebrow-line"></div>
+                    Our Philosophy
+                </div>
+                <blockquote class="about-quote">
+                    "We move what matters most — with precision, <em>discretion,</em> and absolute reliability."
+                </blockquote>
+                <p class="about-body">
+                    Founded in 2008 by former military logistics officers and bullion market veterans, AurumVault was
+                    built on the premise that the world's most valuable cargo deserves the world's most sophisticated
+                    transport system. Eighteen years later, we remain the preferred partner for central banks, mining
+                    corporations, and institutional investors across six continents.
+                    <br><br>
+                    Every shipment is treated as irreplaceable — because to our clients, it is.
+                </p>
+            </div>
+            <div class="about-certifications reveal reveal-delay-1">
+                <div class="cert-row">
+                    <span class="cert-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="6" />
+                            <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+                        </svg></span>
+                    <div class="cert-info">
+                        <div class="cert-name">ISO 28000:2022</div>
+                        <div class="cert-desc">Security Management Systems for Supply Chain</div>
+                    </div>
+                </div>
+                <div class="cert-row">
+                    <span class="cert-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                            <line x1="12" y1="22.08" x2="12" y2="12" />
+                        </svg></span>
+                    <div class="cert-info">
+                        <div class="cert-name">IATA CEIV Pharma & Cargo</div>
+                        <div class="cert-desc">Center of Excellence for Independent Validators</div>
+                    </div>
+                </div>
+                <div class="cert-row">
+                    <span class="cert-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg></span>
+                    <div class="cert-info">
+                        <div class="cert-name">TAPA FSR Level A</div>
+                        <div class="cert-desc">Transported Asset Protection Association — Highest Level</div>
+                    </div>
+                </div>
+                <div class="cert-row">
+                    <span class="cert-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23" />
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg></span>
+                    <div class="cert-info">
+                        <div class="cert-name">LBMA Accredited Member</div>
+                        <div class="cert-desc">London Bullion Market Association Full Member</div>
+                    </div>
+                </div>
+                <div class="cert-row">
+                    <span class="cert-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            <polyline points="9 12 11 14 15 10" />
+                        </svg></span>
+                    <div class="cert-info">
+                        <div class="cert-name">Lloyd's of London Syndicate</div>
+                        <div class="cert-desc">Full-value precious metals insurance coverage</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ CTA ══════════════════════ -->
+    <section class="cta-section" id="contact">
+        <div class="cta-label reveal">
+            <div class="cta-eyebrow-line"></div>
+            Get Started
+            <div class="cta-eyebrow-line"></div>
+        </div>
+        <h2 class="cta-headline reveal reveal-delay-1">Ready to Ship With<br><em>Absolute Confidence?</em></h2>
+        <p class="cta-sub reveal reveal-delay-2">Contact our logistics specialists for a customized bullion transport
+            solution. Your cargo deserves the highest level of security and care.</p>
+        <div class="cta-actions reveal reveal-delay-3">
+            <button class="btn-cta-large">Request a Consultation</button>
+            <a href="#" class="btn-outline-large">View Case Studies</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ FOOTER ══════════════════════ -->
+    <footer>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="footer-logo-name">AurumVault</div>
+                <span class="footer-logo-tag">Elite Bullion Logistics International</span>
+                <p class="footer-brand-desc">The global standard in secure bullion transportation. Licensed, bonded, and
+                    fully insured in every jurisdiction we operate.</p>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title">Navigation</div>
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title">Contact</div>
+                <p>Geneva, Switzerland</p>
+                <p style="margin-top:8px;">ops@aurumvault.com</p>
+                <p>+41 22 555 0800</p>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title">Certifications</div>
+                <p>ISO 28000:2022</p>
+                <p>TAPA FSR Level A</p>
+                <p>LBMA Accredited</p>
+                <p>IATA CEIV Certified</p>
+                <p>Lloyd's of London</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-left">© 2026 AurumVault Logistics International. All rights reserved.</div>
+            <div class="footer-bottom-right">
+                <div class="status-dot"></div>
+                All Systems Operational
+            </div>
+        </div>
+    </footer>
+
+    <!-- ══════════════════════ TRACKING MODAL ══════════════════════ -->
+    <div class="modal-overlay" id="trackingModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title">Shipment Tracker</div>
+                    <div class="modal-subtitle">Real-time global tracking · Satellite network</div>
+                </div>
+                <button class="modal-close" id="closeModalBtn">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="track-form-area">
+                    <p class="track-hint">Enter your tracking number to monitor your shipment in real time.</p>
+                    <div id="notifArea"></div>
+                    <div class="track-input-row">
+                        <div class="track-input-wrap">
+                            <input type="text" class="track-input" id="modalTrackInput"
+                                placeholder="Enter tracking number" autocomplete="off">
+                            <span class="track-input-icon">⌕</span>
+                        </div>
+                        <button class="btn-track" id="modalTrackBtn">Track</button>
+                    </div>
+                </div>
+                <div class="modal-loading" id="modalLoading">
+                    <div class="loading-ring"></div>
+                    <p class="loading-text">Contacting satellite network…</p>
+                </div>
+                <div class="modal-results" id="modalResults">
+                    <div class="result-meta-grid">
+                        <div class="result-meta-item">
+                            <div class="result-meta-label">Tracking Number</div>
+                            <div class="result-meta-val gold" id="rTrackNum">—</div>
+                        </div>
+                        <div class="result-meta-item">
+                            <div class="result-meta-label">Status</div>
+                            <div class="result-meta-val" id="rStatus">
+                                <span class="status-pill transit"><span class="status-pill-dot"></span>In Transit</span>
+                            </div>
+                        </div>
+                        <div class="result-meta-item">
+                            <div class="result-meta-label">Est. Delivery</div>
+                            <div class="result-meta-val gold">June 8, 2026</div>
+                        </div>
+                        <div class="result-meta-item">
+                            <div class="result-meta-label">Origin</div>
+                            <div class="result-meta-val">Obuasi, Ghana</div>
+                        </div>
+                        <div class="result-meta-item">
+                            <div class="result-meta-label">Destination</div>
+                            <div class="result-meta-val">Bennett, CO, USA</div>
+                        </div>
+                        <div class="result-meta-item">
+                            <div class="result-meta-label">Cargo Type</div>
+                            <div class="result-meta-val">Heavy Bullion · High-Sec</div>
+                        </div>
+                    </div>
+                    <!-- Route Map -->
+                    <div class="route-svg-wrap">
+                        <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#b8892a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#e8c060" stop-opacity="0.9" />
+                                    <stop offset="100%" stop-color="#b8892a" stop-opacity="0.3" />
+                                </linearGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="3" />
+                                    <feMerge>
+                                        <feMergeNode />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            <rect width="640" height="200" fill="#0e1015" />
+                            <!-- Grid lines -->
+                            <line x1="0" y1="100" x2="640" y2="100" stroke="#1c2030" stroke-width="0.5"
+                                stroke-dasharray="4,8" />
+                            <line x1="320" y1="0" x2="320" y2="200" stroke="#1c2030" stroke-width="0.5"
+                                stroke-dasharray="4,8" />
+                            <!-- Route curve -->
+                            <path d="M72,155 C190,20 410,18 560,70" fill="none" stroke="url(#rg)" stroke-width="2.5"
+                                stroke-dasharray="8,4" stroke-linecap="round" />
+                            <!-- Animated plane -->
+                            <g filter="url(#glow)">
+                                <circle r="5.5" fill="#e8c060">
+                                    <animateMotion dur="5.5s" repeatCount="indefinite"
+                                        path="M72,155 C190,20 410,18 560,70" keyPoints="0;0.35;0.55;0.75;1"
+                                        keyTimes="0;0.28;0.5;0.72;1" calcMode="linear" />
+                                </circle>
+                                <circle r="11" fill="none" stroke="#e8c060" stroke-width="1" opacity="0.3">
+                                    <animateMotion dur="5.5s" repeatCount="indefinite"
+                                        path="M72,155 C190,20 410,18 560,70" keyPoints="0;0.35;0.55;0.75;1"
+                                        keyTimes="0;0.28;0.5;0.72;1" calcMode="linear" />
+                                </circle>
+                            </g>
+                            <!-- Origin -->
+                            <circle cx="72" cy="155" r="6" fill="#52b87a" stroke="#0e1015" stroke-width="2" />
+                            <text x="84" y="159" fill="#52b87a" font-size="9" font-weight="700"
+                                font-family="Syne,sans-serif">Obuasi, Ghana</text>
+                            <text x="84" y="170" fill="#3a3830" font-size="7.5" font-family="Syne,sans-serif">Departed
+                                Jun 3</text>
+                            <!-- Mid label -->
+                            <text x="286" y="28" fill="#5e5a52" font-size="7.5" font-weight="600"
+                                font-family="Syne,sans-serif" text-anchor="middle">Atlantic Air Corridor</text>
+                            <!-- Destination -->
+                            <circle cx="560" cy="70" r="6" fill="#3a3830" stroke="#b8892a" stroke-width="1.5" />
+                            <text x="572" y="73" fill="#f2d98a" font-size="9" font-weight="700"
+                                font-family="Syne,sans-serif">Bennett, CO</text>
+                            <text x="572" y="84" fill="#3a3830" font-size="7.5" font-family="Syne,sans-serif">Est. Jun
+                                8</text>
+                        </svg>
+                    </div>
+                    <!-- Progress -->
+                    <div class="progress-area">
+                        <div class="progress-top">
+                            <span>Shipment Progress</span>
+                            <span class="pct" id="rPct">55%</span>
+                        </div>
+                        <div class="prog-track">
+                            <div class="prog-fill" id="rProgBar" style="width:55%"></div>
+                        </div>
+                    </div>
+                    <!-- Timeline -->
+                    <div class="timeline" id="rTimeline">
+                        <div class="tl-step completed">
+                            <div class="tl-dot">✓</div>
+                            <div class="tl-content">
+                                <div class="tl-title">Shipment Registered & Verified</div>
+                                <div class="tl-loc">Obuasi Gold Mine Facility, Ghana</div>
+                                <div class="tl-time">June 2, 2026 · 09:15 GMT</div>
+                            </div>
+                        </div>
+                        <div class="tl-step completed">
+                            <div class="tl-dot">✓</div>
+                            <div class="tl-content">
+                                <div class="tl-title">Cargo Sealed & Armored Transport Dispatched</div>
+                                <div class="tl-loc">Obuasi → Accra Export Hub, Ghana</div>
+                                <div class="tl-time">June 2, 2026 · 14:30 GMT</div>
+                            </div>
+                        </div>
+                        <div class="tl-step completed">
+                            <div class="tl-dot">✓</div>
+                            <div class="tl-content">
+                                <div class="tl-title">Export Clearance & Departure</div>
+                                <div class="tl-loc">Kotoka Int'l Airport, Accra, Ghana</div>
+                                <div class="tl-time">June 3, 2026 · 22:00 GMT</div>
+                            </div>
+                        </div>
+                        <div class="tl-step current">
+                            <div class="tl-dot">✈</div>
+                            <div class="tl-content">
+                                <div class="tl-title">In Transit — International Air Freight</div>
+                                <div class="tl-loc">Over Atlantic · En Route to Denver Int'l Airport</div>
+                                <div class="tl-time">June 4, 2026 · Active</div>
+                                <span class="tl-eta">Current: Mid-Atlantic Corridor</span>
+                            </div>
+                        </div>
+                        <div class="tl-step pending">
+                            <div class="tl-dot">○</div>
+                            <div class="tl-content">
+                                <div class="tl-title">US Customs Clearance</div>
+                                <div class="tl-loc">Denver International Airport, CO, USA</div>
+                                <div class="tl-time">Est: June 6, 2026</div>
+                            </div>
+                        </div>
+                        <div class="tl-step pending">
+                            <div class="tl-dot">○</div>
+                            <div class="tl-content">
+                                <div class="tl-title">Armored Ground Transport</div>
+                                <div class="tl-loc">Denver → Bennett Distribution Center, CO</div>
+                                <div class="tl-time">Est: June 7, 2026</div>
+                            </div>
+                        </div>
+                        <div class="tl-step pending">
+                            <div class="tl-dot">○</div>
+                            <div class="tl-content">
+                                <div class="tl-title">Final Delivery — Signature Required</div>
+                                <div class="tl-loc">7451 Shumaker Rd, Bennett, CO 80102, USA</div>
+                                <div class="tl-time">Est: June 8, 2026 · by 17:00 MST</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const DEMO = 'AVL-GH-8842-CO-2026';
+
+            // ── Loader ──
+            window.addEventListener('load', () => {
+                setTimeout(() => document.getElementById('loader').classList.add('done'), 1800);
+            });
+
+            // ── Custom Cursor ──
+            const dot = document.getElementById('cursorDot');
+            const ring = document.getElementById('cursorRing');
+            let mx = 0, my = 0, rx = 0, ry = 0;
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+            function animateRing() {
+                rx += (mx - rx) * 0.12;
+                ry += (my - ry) * 0.12;
+                ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+                requestAnimationFrame(animateRing);
+            }
+            animateRing();
+            document.querySelectorAll('a, button, [data-hover]').forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+            });
+
+            // ── Header scroll ──
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 40));
+
+            // ── Mobile menu ──
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const nav = document.getElementById('mainNav');
+            let menuOpen = false;
+            mobileBtn.addEventListener('click', () => {
+                menuOpen = !menuOpen;
+                nav.classList.toggle('open', menuOpen);
+            });
+            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menuOpen = false; nav.classList.remove('open'); }));
+            window.addEventListener('resize', () => { if (innerWidth > 768) { menuOpen = false; nav.classList.remove('open'); } });
+
+            // ── Reveal on scroll ──
+            const reveals = document.querySelectorAll('.reveal');
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+            }, { threshold: 0.12 });
+            reveals.forEach(r => io.observe(r));
+            // Immediately trigger hero reveals
+            document.querySelectorAll('.hero .reveal').forEach(r => setTimeout(() => r.classList.add('visible'), 200));
+
+            // ── Modal ──
+            const modal = document.getElementById('trackingModal');
+            const closeBtn = document.getElementById('closeModalBtn');
+            const trackInput = document.getElementById('modalTrackInput');
+            const trackBtn = document.getElementById('modalTrackBtn');
+            const loading = document.getElementById('modalLoading');
+            const results = document.getElementById('modalResults');
+            const notifArea = document.getElementById('notifArea');
+            let busy = false;
+
+            function openModal() {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                trackInput.value = '';
+                results.classList.remove('visible');
+                loading.classList.remove('active');
+                setTimeout(() => trackInput.focus(), 300);
+            }
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                busy = false;
+                trackBtn.disabled = false;
+                trackBtn.textContent = 'Track';
+                loading.classList.remove('active');
+            }
+
+            document.getElementById('headerTrackBtn').addEventListener('click', openModal);
+            document.getElementById('heroTrackBtn').addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+            document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+            document.getElementById('demoCodeBtn') && document.getElementById('demoCodeBtn').addEventListener('click', () => { });
+
+            function showNotif(msg, error = true) {
+                notifArea.innerHTML = '';
+                const n = document.createElement('div');
+                n.className = 'notif';
+                if (!error) { n.style.background = 'rgba(45,138,78,0.08)'; n.style.borderColor = 'rgba(82,184,122,0.2)'; n.style.color = '#52b87a'; }
+                n.textContent = msg;
+                notifArea.appendChild(n);
+                setTimeout(() => { n.style.opacity = '0'; n.style.transition = 'opacity 0.4s'; setTimeout(() => n.remove(), 400); }, 3500);
+            }
+
+            function doTrack(num) {
+                if (busy) return;
+                const val = num.trim().toUpperCase();
+                if (!val) { trackInput.focus(); return; }
+                busy = true;
+                trackBtn.disabled = true; trackBtn.textContent = '...';
+                loading.classList.add('active');
+                results.classList.remove('visible');
+
+                setTimeout(() => {
+                    loading.classList.remove('active');
+                    if (val === DEMO) {
+                        document.getElementById('rTrackNum').textContent = val;
+                        document.getElementById('rStatus').innerHTML = '<span class="status-pill transit"><span class="status-pill-dot"></span>In Transit</span>';
+                        document.getElementById('rProgBar').style.width = '55%';
+                        document.getElementById('rPct').textContent = '55%';
+                        results.classList.add('visible');
+                    } else {
+                        document.getElementById('rTrackNum').textContent = val;
+                        document.getElementById('rStatus').innerHTML = '<span class="status-pill" style="background:rgba(224,85,74,0.1);color:#e0554a;border:1px solid rgba(224,85,74,0.25);">⚠ Not Found</span>';
+                        document.getElementById('rProgBar').style.width = '0%';
+                        document.getElementById('rPct').textContent = 'N/A';
+                        results.classList.add('visible');
+                        showNotif('Tracking number not found. Please check and try again.');
+                        trackInput.value = '';
+                        trackInput.placeholder = 'Enter tracking number';
+                        trackInput.focus();
+                    }
+                    busy = false;
+                    trackBtn.disabled = false; trackBtn.textContent = 'Track';
+                }, 1400 + Math.random() * 500);
+            }
+
+            trackBtn.addEventListener('click', () => doTrack(trackInput.value));
+            trackInput.addEventListener('keydown', e => { if (e.key === 'Enter') doTrack(trackInput.value); });
+        })();
+    </script>
+</body>
+
+</html>
