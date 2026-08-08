@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | AurumVault Logistics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #08090b;
+            --ink-2: #0e1015;
+            --ink-3: #151820;
+            --ink-4: #1c2030;
+            --gold-deep: #7a5c1e;
+            --gold: #b8892a;
+            --gold-mid: #d4a843;
+            --gold-light: #e8c060;
+            --gold-pale: #f2d98a;
+            --cream: #f8f2e6;
+            --cream-2: #ede5d4;
+            --ash: #8a8478;
+            --ash-2: #5e5a52;
+            --ash-3: #3a3830;
+            --white: #fdfcfa;
+            --success: #2d8a4e;
+            --success-light: #52b87a;
+            --amber: #c87c1a;
+            --ff-serif: 'Cormorant Garamond', Georgia, serif;
+            --ff-sans: 'Syne', sans-serif;
+            --ff-mono: 'DM Mono', monospace;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --radius-sm: 3px;
+            --transition: 0.28s ease;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--ff-sans);
+            background: var(--ink);
+            color: var(--cream);
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--ink);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-deep);
+            border-radius: 4px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.022;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 256px;
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* ─── HEADER ─── */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 5000;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .header.scrolled {
+            background: rgba(8, 9, 11, 0.94);
+            backdrop-filter: blur(22px);
+            border-bottom-color: rgba(184, 137, 42, 0.10);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--cream);
+        }
+
+        .logo-emblem {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+        }
+
+        .logo-emblem svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-family: var(--ff-serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            line-height: 1;
+            color: var(--gold-pale);
+        }
+
+        .logo-tagline {
+            font-size: 0.54rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ash);
+            margin-top: 2px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav a {
+            font-family: var(--ff-sans);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ash);
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            transition: color 0.25s, background 0.25s;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            right: 50%;
+            height: 1px;
+            background: var(--gold-mid);
+            transition: left 0.3s var(--ease-out), right 0.3s var(--ease-out);
+        }
+
+        .nav a:hover {
+            color: var(--gold-pale);
+        }
+
+        .nav a:hover::after {
+            left: 16px;
+            right: 16px;
+        }
+
+        .nav a.active {
+            color: var(--gold-light);
+        }
+
+        .nav a.active::after {
+            left: 16px;
+            right: 16px;
+            background: var(--gold-light);
+        }
+
+        .btn-track-header {
+            background: none;
+            border: 1px solid rgba(184, 137, 42, 0.35);
+            color: var(--gold-light);
+            padding: 10px 22px;
+            font-family: var(--ff-sans);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-track-header:hover {
+            background: rgba(184, 137, 42, 0.08);
+            border-color: var(--gold-mid);
+            box-shadow: 0 0 22px rgba(184, 137, 42, 0.18);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--cream);
+            cursor: pointer;
+            padding: 6px;
+        }
+
+        @media (max-width: 860px) {
+            .header {
+                padding: 0 24px;
+            }
+
+            .nav {
+                display: none;
+                position: absolute;
+                top: 76px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(8, 9, 11, 0.98);
+                backdrop-filter: blur(22px);
+                padding: 16px 24px;
+                border-bottom: 1px solid rgba(184, 137, 42, 0.1);
+                z-index: 4999;
+                gap: 4px;
+            }
+
+            .nav.open {
+                display: flex;
+            }
+
+            .nav a {
+                padding: 12px 16px;
+                font-size: 0.75rem;
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+
+        /* ─── PAGE HERO ─── */
+        .page-hero {
+            padding: 160px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(184, 137, 42, 0.07) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .page-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--gold-mid);
+            margin-bottom: 18px;
+        }
+
+        .page-eyebrow-line {
+            width: 28px;
+            height: 1px;
+            background: var(--gold-mid);
+        }
+
+        .page-title {
+            font-family: var(--ff-serif);
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .page-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .page-desc {
+            font-size: 0.9rem;
+            color: var(--ash);
+            max-width: 600px;
+            margin: 0 auto 0;
+        }
+
+        /* ─── SERVICES GRID ─── */
+        .services-grid-section {
+            padding: 60px 0 100px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(184, 137, 42, 0.08);
+            border: 1px solid rgba(184, 137, 42, 0.08);
+        }
+
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .svc-card {
+            background: var(--ink-2);
+            padding: 48px 40px;
+            transition: background 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .svc-card:hover {
+            background: var(--ink-3);
+        }
+
+        .svc-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 0% 0%, rgba(184, 137, 42, 0.06) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .svc-card:hover::before {
+            opacity: 1;
+        }
+
+        .svc-icon {
+            width: 52px;
+            height: 52px;
+            border: 1px solid rgba(184, 137, 42, 0.18);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--gold-mid);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: rgba(184, 137, 42, 0.03);
+            flex-shrink: 0;
+        }
+
+        .svc-card:hover .svc-icon {
+            border-color: var(--gold-mid);
+            box-shadow: 0 0 28px rgba(184, 137, 42, 0.16);
+        }
+
+        .svc-title {
+            font-family: var(--ff-serif);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--cream);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .svc-desc {
+            font-size: 0.8rem;
+            color: var(--ash);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .svc-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px;
+        }
+
+        .svc-features li {
+            font-size: 0.72rem;
+            color: var(--ash-2);
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .svc-features li::before {
+            content: '•';
+            color: var(--gold-mid);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .svc-link {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold-deep);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .svc-card:hover .svc-link {
+            color: var(--gold-light);
+        }
+
+        /* ─── PROCESS SECTION ─── */
+        .process-section {
+            padding: 80px 0 100px;
+            background: var(--ink-2);
+            border-top: 1px solid rgba(184, 137, 42, 0.06);
+            border-bottom: 1px solid rgba(184, 137, 42, 0.06);
+        }
+
+        .section-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--gold-mid);
+            margin-bottom: 14px;
+        }
+
+        .section-eyebrow-line {
+            width: 28px;
+            height: 1px;
+            background: var(--gold-mid);
+        }
+
+        .section-title {
+            font-family: var(--ff-serif);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 300;
+            line-height: 1.05;
+            color: var(--white);
+            margin-bottom: 56px;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        @media (max-width: 768px) {
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step-card {
+            background: var(--ink-3);
+            border: 1px solid rgba(184, 137, 42, 0.08);
+            padding: 36px 32px;
+            border-radius: var(--radius-sm);
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .step-card:hover {
+            border-color: rgba(184, 137, 42, 0.2);
+        }
+
+        .step-number {
+            font-family: var(--ff-serif);
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--gold-deep);
+            line-height: 1;
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+
+        .step-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--cream);
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+        }
+
+        .step-desc {
+            font-size: 0.78rem;
+            color: var(--ash);
+            line-height: 1.6;
+        }
+
+        /* ─── CTA ─── */
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-deep), var(--gold-mid));
+            background-size: 200%;
+            color: var(--ink);
+            border: none;
+            padding: 16px 36px;
+            font-family: var(--ff-sans);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: background-position 0.5s, box-shadow 0.4s, transform 0.3s;
+            box-shadow: 0 6px 28px rgba(184, 137, 42, 0.28);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background-position: 100%;
+            box-shadow: 0 14px 44px rgba(184, 137, 42, 0.45);
+            transform: translateY(-2px);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid rgba(184, 137, 42, 0.08);
+            background: var(--ink-2);
+            padding: 64px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 48px;
+        }
+
+        @media (max-width: 860px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-brand-name {
+            font-family: var(--ff-serif);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--gold-pale);
+            margin-bottom: 4px;
+        }
+
+        .footer-brand-tag {
+            font-size: 0.54rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ash-2);
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        .footer-brand-desc {
+            font-size: 0.74rem;
+            color: var(--ash);
+            line-height: 1.7;
+            max-width: 260px;
+        }
+
+        .footer-col-title {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--cream-2);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(184, 137, 42, 0.08);
+        }
+
+        footer a {
+            display: block;
+            text-decoration: none;
+            font-size: 0.74rem;
+            color: var(--ash);
+            padding: 5px 0;
+            letter-spacing: 0.04em;
+            transition: color 0.25s;
+        }
+
+        footer a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(184, 137, 42, 0.06);
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.66rem;
+            color: var(--ash-3);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .footer-status-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--success-light);
+            animation: pulse-green 2.5s ease-in-out infinite;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        @keyframes pulse-green {
+
+            0%,
+            100% {
+                box-shadow: 0 0 6px var(--success-light);
+            }
+
+            50% {
+                box-shadow: 0 0 18px var(--success-light), 0 0 36px rgba(82, 184, 122, 0.3);
+            }
+        }
+
+        /* ─── REVEAL ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <a href="index.html" class="logo">
+            <div class="logo-emblem">
+                <svg viewBox="0 0 46 46" fill="none">
+                    <rect x="1" y="1" width="44" height="44" stroke="#b8892a" stroke-width="1" />
+                    <rect x="5" y="5" width="36" height="36" stroke="#b8892a" stroke-width="0.5" stroke-opacity="0.4" />
+                    <path d="M23 10L34 36H12L23 10Z" fill="none" stroke="#d4a843" stroke-width="1.5" />
+                    <circle cx="23" cy="10" r="2.5" fill="#e8c060" />
+                    <circle cx="12" cy="36" r="2" fill="#b8892a" />
+                    <circle cx="34" cy="36" r="2" fill="#b8892a" />
+                </svg>
+            </div>
+            <div class="logo-text-wrap">
+                <span class="logo-name">AurumVault</span>
+                <span class="logo-tagline">Elite Bullion Logistics</span>
+            </div>
+        </a>
+        <nav class="nav" id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="services.html" class="active">Services</a>
+            <a href="about.html">About</a>
+            <a href="tracking.html">Tracking</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div style="display:flex;align-items:center;gap:14px;">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <a href="tracking.html" class="btn-track-header">Track Shipment</a>
+        </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-eyebrow reveal">
+                <div class="page-eyebrow-line"></div> Capabilities
+            </div>
+            <h1 class="page-title reveal reveal-delay-1">Comprehensive <em>Logistics</em> Services</h1>
+            <p class="page-desc reveal reveal-delay-2">From armored air freight to customs clearance, we provide the
+                full spectrum of secure bullion transportation and vault management worldwide.</p>
+        </div>
+    </section>
+
+    <!-- SERVICES GRID -->
+    <section class="services-grid-section">
+        <div class="container">
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="svc-card reveal">
+                    <div class="svc-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                        </svg>
+                    </div>
+                    <h3 class="svc-title">International Air Freight</h3>
+                    <p class="svc-desc">Dedicated cargo aircraft with armored containers and real-time satellite
+                        tracking for transcontinental bullion shipments.</p>
+                    <ul class="svc-features">
+                        <li>Exclusive cargo aircraft partnerships</li>
+                        <li>Armored, tamper-proof containers</li>
+                        <li>Global airport network in 80+ countries</li>
+                    </ul>
+                    <a href="contact.html" class="svc-link">Request Quote →</a>
+                </div>
+                <!-- Service 2 -->
+                <div class="svc-card reveal">
+                    <div class="svc-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <rect x="1" y="3" width="15" height="13" rx="1" />
+                            <path d="M16 8h4l3 3v5h-7V8z" />
+                            <circle cx="5.5" cy="18.5" r="2.5" />
+                            <circle cx="18.5" cy="18.5" r="2.5" />
+                        </svg>
+                    </div>
+                    <h3 class="svc-title">Armored Ground Transport</h3>
+                    <p class="svc-desc">Military-grade vehicles with dual-driver protocols, GPS geofencing, and secure
+                        convoy operations for domestic and cross-border routes.</p>
+                    <ul class="svc-features">
+                        <li>Level B6+ armored vehicles</li>
+                        <li>Real-time GPS tracking & geofencing</li>
+                        <li>Armed escort & counter-surveillance</li>
+                    </ul>
+                    <a href="contact.html" class="svc-link">Request Quote →</a>
+                </div>
+                <!-- Service 3 -->
+                <div class="svc-card reveal">
+                    <div class="svc-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            <circle cx="12" cy="16" r="1" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <h3 class="svc-title">Vault-to-Vault Transfer</h3>
+                    <p class="svc-desc">Seamless chain-of-custody transfers between major bullion depositories, central
+                        banks, and private vaults worldwide.</p>
+                    <ul class="svc-features">
+                        <li>LBMA-accredited vault partners</li>
+                        <li>Zero custody gap procedures</li>
+                        <li>Full insurance coverage during transfer</li>
+                    </ul>
+                    <a href="contact.html" class="svc-link">Request Quote →</a>
+                </div>
+                <!-- Service 4 -->
+                <div class="svc-card reveal">
+                    <div class="svc-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                    </div>
+                    <h3 class="svc-title">Customs & Compliance</h3>
+                    <p class="svc-desc">Expert handling of international customs clearance and precious metal regulatory
+                        compliance in every jurisdiction.</p>
+                    <ul class="svc-features">
+                        <li>Dedicated in-house customs brokers</li>
+                        <li>HS code & tariff optimization</li>
+                        <li>Sanctions & AML screening</li>
+                    </ul>
+                    <a href="contact.html" class="svc-link">Request Quote →</a>
+                </div>
+                <!-- Service 5 -->
+                <div class="svc-card reveal">
+                    <div class="svc-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <circle cx="12" cy="12" r="2" />
+                            <path
+                                d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                        </svg>
+                    </div>
+                    <h3 class="svc-title">24/7 Live Monitoring</h3>
+                    <p class="svc-desc">Satellite-tracked shipments with tamper detection sensors and a dedicated global
+                        operations center, always active.</p>
+                    <ul class="svc-features">
+                        <li>Multi-sensor tamper alerts</li>
+                        <li>Dedicated operations command center</li>
+                        <li>Client dashboard access</li>
+                    </ul>
+                    <a href="tracking.html" class="svc-link">Track a Shipment →</a>
+                </div>
+                <!-- Service 6 -->
+                <div class="svc-card reveal">
+                    <div class="svc-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                    </div>
+                    <h3 class="svc-title">Insurance & Risk Management</h3>
+                    <p class="svc-desc">Comprehensive Lloyd's of London coverage with full-value protection on every
+                        route and every single shipment.</p>
+                    <ul class="svc-features">
+                        <li>All-risk cargo insurance</li>
+                        <li>Political risk & war coverage</li>
+                        <li>Instant claims processing</li>
+                    </ul>
+                    <a href="contact.html" class="svc-link">Get a Coverage Quote →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-eyebrow reveal">
+                <div class="section-eyebrow-line"></div>How It Works
+            </div>
+            <h2 class="section-title reveal reveal-delay-1">Our Secure Logistics <em>Process</em></h2>
+            <div class="process-steps">
+                <div class="step-card reveal">
+                    <div class="step-number">01</div>
+                    <div class="step-title">Consultation & Planning</div>
+                    <p class="step-desc">We assess your cargo, route, and timeline to design a tailored security plan
+                        with full regulatory compliance.</p>
+                </div>
+                <div class="step-card reveal reveal-delay-1">
+                    <div class="step-number">02</div>
+                    <div class="step-title">Secure Packaging & Dispatch</div>
+                    <p class="step-desc">Your bullion is sealed in tamper-evident, armored containers and loaded under
+                        strict chain-of-custody protocols.</p>
+                </div>
+                <div class="step-card reveal reveal-delay-2">
+                    <div class="step-number">03</div>
+                    <div class="step-title">Real-Time Tracking & Delivery</div>
+                    <p class="step-desc">Monitor your shipment 24/7 via satellite until it reaches the destination vault
+                        with signature confirmation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="page-eyebrow reveal" style="justify-content:center;">
+                <div class="page-eyebrow-line"></div> Get Started
+            </div>
+            <h2 class="page-title reveal reveal-delay-1" style="font-size:clamp(2.6rem,4.5vw,4rem);">Need a Custom
+                <em>Transport Solution?</em></h2>
+            <p style="color:var(--ash);max-width:500px;margin:0 auto 32px;font-size:0.85rem;">Our specialists are
+                available 24/7 to design a secure logistics plan for your bullion, precious metals, or high-value cargo.
+            </p>
+            <a href="contact.html" class="btn-primary reveal reveal-delay-2">Request a Consultation</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand-name">AurumVault</div>
+                    <span class="footer-brand-tag">Elite Bullion Logistics International</span>
+                    <p class="footer-brand-desc">The global standard in secure bullion transportation. Licensed, bonded,
+                        and fully insured in every jurisdiction we operate.</p>
+                </div>
+                <div>
+                    <div class="footer-col-title">Navigation</div>
+                    <a href="index.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="about.html">About</a>
+                    <a href="tracking.html">Tracking</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div>
+                    <div class="footer-col-title">Services</div>
+                    <a href="services.html">Air Freight</a>
+                    <a href="services.html">Ground Transport</a>
+                    <a href="services.html">Vault Transfer</a>
+                    <a href="services.html">Customs Clearance</a>
+                    <a href="services.html">Insurance</a>
+                </div>
+                <div>
+                    <div class="footer-col-title">Contact</div>
+                    <p>Geneva, Switzerland</p>
+                    <p>ops@aurumvault.com</p>
+                    <p>+41 22 555 0800</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 AurumVault Logistics International. All rights reserved.</span>
+                <span><span class="footer-status-dot"></span>All Systems Operational</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 40));
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const nav = document.getElementById('mainNav');
+            let open = false;
+            mobileBtn.addEventListener('click', () => {
+                open = !open;
+                nav.classList.toggle('open', open);
+            });
+            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                open = false;
+                nav.classList.remove('open');
+            }));
+            window.addEventListener('resize', () => {
+                if (innerWidth > 860) {
+                    open = false;
+                    nav.classList.remove('open');
+                }
+            });
+            const reveals = document.querySelectorAll('.reveal');
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            reveals.forEach(r => io.observe(r));
+            setTimeout(() => document.querySelectorAll('.page-hero .reveal').forEach(r => r.classList.add('visible')), 200);
+        })();
+    </script>
+</body>
+
+</html>

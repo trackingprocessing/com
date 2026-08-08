@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Shipment | AurumVault Logistics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #08090b;
+            --ink-2: #0e1015;
+            --ink-3: #151820;
+            --gold-deep: #7a5c1e;
+            --gold: #b8892a;
+            --gold-mid: #d4a843;
+            --gold-light: #e8c060;
+            --gold-pale: #f2d98a;
+            --cream: #f8f2e6;
+            --cream-2: #ede5d4;
+            --ash: #8a8478;
+            --ash-2: #5e5a52;
+            --ash-3: #3a3830;
+            --white: #fdfcfa;
+            --success: #2d8a4e;
+            --success-light: #52b87a;
+            --amber: #c87c1a;
+            --ff-serif: 'Cormorant Garamond', Georgia, serif;
+            --ff-sans: 'Syne', sans-serif;
+            --ff-mono: 'DM Mono', monospace;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --radius: 3px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--ff-sans);
+            background: var(--ink);
+            color: var(--cream);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.022;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 256px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 860px;
+            z-index: 10;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--cream);
+        }
+
+        .logo-emblem {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+        }
+
+        .logo-emblem svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-family: var(--ff-serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            line-height: 1;
+            color: var(--gold-pale);
+        }
+
+        .logo-tagline {
+            font-size: 0.54rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ash);
+            margin-top: 2px;
+        }
+
+        .back-link {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--ash);
+            text-decoration: none;
+            transition: color 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+        }
+
+        .tracking-card {
+            background: var(--ink-2);
+            border: 1px solid rgba(184, 137, 42, 0.12);
+            border-radius: 4px;
+            padding: 48px 44px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tracking-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 0% 0%, rgba(184, 137, 42, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .section-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--gold-mid);
+            margin-bottom: 12px;
+        }
+
+        .section-eyebrow-line {
+            width: 28px;
+            height: 1px;
+            background: var(--gold-mid);
+        }
+
+        .page-title {
+            font-family: var(--ff-serif);
+            font-size: clamp(2.2rem, 3.5vw, 3rem);
+            font-weight: 300;
+            line-height: 1.05;
+            color: var(--white);
+            margin-bottom: 32px;
+        }
+
+        .page-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .track-input-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .track-input {
+            flex: 1;
+            padding: 16px 20px;
+            background: var(--ink);
+            border: 1px solid rgba(184, 137, 42, 0.2);
+            color: var(--cream);
+            font-family: var(--ff-mono);
+            font-size: 0.9rem;
+            letter-spacing: 0.06em;
+            outline: none;
+            border-radius: var(--radius);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .track-input:focus {
+            border-color: var(--gold-mid);
+            box-shadow: 0 0 0 4px rgba(184, 137, 42, 0.06);
+        }
+
+        .track-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            letter-spacing: 0.04em;
+        }
+
+        .btn-track {
+            background: linear-gradient(135deg, var(--gold-deep), var(--gold-mid));
+            color: var(--ink);
+            border: none;
+            padding: 16px 32px;
+            font-family: var(--ff-sans);
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            border-radius: var(--radius);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: box-shadow 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-track:hover {
+            box-shadow: 0 10px 28px rgba(184, 137, 42, 0.45);
+            transform: translateY(-1px);
+        }
+
+        .btn-track:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .tracking-result {
+            margin-top: 36px;
+            display: none;
+        }
+
+        .tracking-result.active {
+            display: block;
+        }
+
+        /* Loading Spinner */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+            gap: 20px;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid rgba(184, 137, 42, 0.15);
+            border-top-color: var(--gold-mid);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-family: var(--ff-sans);
+            font-size: 0.8rem;
+            color: var(--ash);
+            letter-spacing: 0.06em;
+        }
+
+        .result-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(184, 137, 42, 0.1);
+            margin-bottom: 24px;
+            border: 1px solid rgba(184, 137, 42, 0.1);
+        }
+
+        .result-meta-item {
+            background: var(--ink-3);
+            padding: 18px 16px;
+        }
+
+        .result-meta-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ash-2);
+            margin-bottom: 6px;
+        }
+
+        .result-meta-value {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--cream-2);
+            word-break: break-word;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(200, 124, 26, 0.1);
+            border: 1px solid rgba(200, 124, 26, 0.25);
+            padding: 5px 14px;
+            border-radius: 2px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--amber);
+        }
+
+        .status-pill-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--amber);
+            animation: pulse-amber 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-amber {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .progress-area {
+            margin-bottom: 24px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: var(--ash);
+            margin-bottom: 8px;
+        }
+
+        .progress-header .pct {
+            color: var(--gold-light);
+            font-family: var(--ff-mono);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(184, 137, 42, 0.08);
+            border-radius: 2px;
+            overflow: visible;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold-deep), var(--gold-light));
+            border-radius: 2px;
+            position: relative;
+            transition: width 0.8s var(--ease-out);
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gold-light);
+            box-shadow: 0 0 18px rgba(232, 192, 96, 0.8);
+        }
+
+        .current-location {
+            font-size: 0.82rem;
+            color: var(--amber);
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .current-location .loc-icon {
+            font-size: 1.2rem;
+        }
+
+        .timeline {
+            border-left: 2px solid rgba(184, 137, 42, 0.18);
+            padding-left: 20px;
+            margin-top: 16px;
+        }
+
+        .tl-step {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .tl-step:last-child {
+            padding-bottom: 0;
+        }
+
+        .tl-dot {
+            position: absolute;
+            left: -29px;
+            top: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--ink-2);
+            border: 2px solid var(--gold-mid);
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .tl-step.completed .tl-dot {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .tl-step.current .tl-dot {
+            background: var(--amber);
+            border-color: var(--amber);
+            box-shadow: 0 0 12px rgba(200, 124, 26, 0.6);
+        }
+
+        .tl-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 2px;
+        }
+
+        .tl-loc {
+            font-size: 0.72rem;
+            color: var(--ash);
+        }
+
+        .tl-time {
+            font-size: 0.65rem;
+            color: var(--ash-2);
+        }
+
+        @media (max-width: 640px) {
+            .tracking-card {
+                padding: 32px 24px;
+            }
+
+            .result-meta-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .track-input-row {
+                flex-direction: column;
+            }
+
+            .btn-track {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .result-meta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <a href="index.html" class="logo">
+                <div class="logo-emblem">
+                    <svg viewBox="0 0 46 46" fill="none">
+                        <rect x="1" y="1" width="44" height="44" stroke="#b8892a" stroke-width="1" />
+                        <rect x="5" y="5" width="36" height="36" stroke="#b8892a" stroke-width="0.5"
+                            stroke-opacity="0.4" />
+                        <path d="M23 10L34 36H12L23 10Z" fill="none" stroke="#d4a843" stroke-width="1.5" />
+                        <circle cx="23" cy="10" r="2.5" fill="#e8c060" />
+                        <circle cx="12" cy="36" r="2" fill="#b8892a" />
+                        <circle cx="34" cy="36" r="2" fill="#b8892a" />
+                    </svg>
+                </div>
+                <div class="logo-text-wrap">
+                    <span class="logo-name">AurumVault</span>
+                    <span class="logo-tagline">Elite Bullion Logistics</span>
+                </div>
+            </a>
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                </svg>
+                Back to Home
+            </a>
+        </div>
+
+        <div class="tracking-card">
+            <div class="section-eyebrow">
+                <div class="section-eyebrow-line"></div> Live Tracker
+            </div>
+            <h1 class="page-title">Track Your <em>Bullion</em> Shipment</h1>
+
+            <div class="track-input-row">
+                <input type="text" class="track-input" id="trackInput" placeholder="Enter tracking number"
+                    autocomplete="off" />
+                <button class="btn-track" id="trackBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <span id="btnText">Track Now</span>
+                </button>
+            </div>
+
+            <div class="tracking-result" id="trackingResult"></div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const VALID_TRACKING_ID = 'AVL-GH-8842-CO-2026';
+            const trackInput = document.getElementById('trackInput');
+            const trackBtn = document.getElementById('trackBtn');
+            const btnText = document.getElementById('btnText');
+            const resultDiv = document.getElementById('trackingResult');
+            let searchTimeout = null;
+
+            // Loading HTML
+            const loadingHTML = `
+                <div class="loading-container">
+                    <div class="spinner"></div>
+                    <p class="loading-text">Retrieving tracking details…</p>
+                </div>
+            `;
+
+            function buildResultHTML(valid, trackingId) {
+                if (valid) {
+                    return `
+                        <div class="result-meta-grid">
+                            <div class="result-meta-item">
+                                <div class="result-meta-label">Tracking Number</div>
+                                <div class="result-meta-value" style="font-family:var(--ff-mono);color:var(--gold-light);">${VALID_TRACKING_ID}</div>
+                            </div>
+                            <div class="result-meta-item">
+                                <div class="result-meta-label">Status</div>
+                                <div class="result-meta-value">
+                                    <span class="status-pill"><span class="status-pill-dot"></span>At US Customs</span>
+                                </div>
+                            </div>
+                            <div class="result-meta-item">
+                                <div class="result-meta-label">Est. Delivery</div>
+                                <div class="result-meta-value">August 28, 2026</div>
+                            </div>
+                            <div class="result-meta-item">
+                                <div class="result-meta-label">Origin</div>
+                                <div class="result-meta-value">Obuasi, Ghana</div>
+                            </div>
+                            <div class="result-meta-item">
+                                <div class="result-meta-label">Destination</div>
+                                <div class="result-meta-value">Bennett, CO, USA</div>
+                            </div>
+                            <div class="result-meta-item">
+                                <div class="result-meta-label">Cargo Type</div>
+                                <div class="result-meta-value">Heavy Bullion · High-Sec</div>
+                            </div>
+                        </div>
+                        <div class="progress-area">
+                            <div class="progress-header">
+                                <span>Shipment Progress</span>
+                                <span class="pct">82%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width:82%;"></div>
+                            </div>
+                        </div>
+                        <div class="current-location">
+                            <span class="loc-icon">📍</span>
+                            <span>US Customs — Denver International Airport, Colorado</span>
+                        </div>
+                        <div class="timeline">
+                            <div class="tl-step completed">
+                                <div class="tl-dot"></div>
+                                <div class="tl-title">Shipment Registered & Verified</div>
+                                <div class="tl-loc">Obuasi Gold Mine Facility, Ghana</div>
+                                <div class="tl-time">June 2, 2026 · 09:15 GMT</div>
+                            </div>
+                            <div class="tl-step completed">
+                                <div class="tl-dot"></div>
+                                <div class="tl-title">Cargo Sealed & Armored Transport Dispatched</div>
+                                <div class="tl-loc">Obuasi → Accra Export Hub, Ghana</div>
+                                <div class="tl-time">June 2, 2026 · 14:30 GMT</div>
+                            </div>
+                            <div class="tl-step completed">
+                                <div class="tl-dot"></div>
+                                <div class="tl-title">Export Clearance & Departure</div>
+                                <div class="tl-loc">Kotoka Int'l Airport, Accra, Ghana</div>
+                                <div class="tl-time">June 3, 2026 · 22:00 GMT</div>
+                            </div>
+                            <div class="tl-step completed">
+                                <div class="tl-dot"></div>
+                                <div class="tl-title">In Transit — International Air Freight</div>
+                                <div class="tl-loc">Over Atlantic · En Route to Denver Int'l Airport</div>
+                                <div class="tl-time">July 4–August 6, 2026</div>
+                            </div>
+                            <div class="tl-step current">
+                                <div class="tl-dot"></div>
+                                <div class="tl-title">US Customs Clearance</div>
+                                <div class="tl-loc">Denver International Airport, CO, USA</div>
+                                <div class="tl-time">August 14, 2026 · In Progress</div>
+                            </div>
+                            <div class="tl-step">
+                                <div class="tl-dot"></div>
+                                <div class="tl-title">Armored Ground Transport</div>
+                                <div class="tl-loc">Denver → Bennett Distribution Center, CO</div>
+                                <div class="tl-time">Est: August 14, 2026</div>
+                            </div>
+                            <div class="tl-step">
+                                <div class="tl-dot"></div>
+                                <div class="tl-title">Final Delivery — Signature Required</div>
+                                <div class="tl-loc">7451 Shumaker Rd, Bennett, CO 80102, USA</div>
+                                <div class="tl-time">Est: August 28, 2026 · by 17:00 MST</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="result-meta-grid">
+                            <div class="result-meta-item">
+                                <div class="result-meta-label">Tracking Number</div>
+                                <div class="result-meta-value" style="font-family:var(--ff-mono);color:var(--ash);">${trackingId}</div>
+                            </div>
+                            <div class="result-meta-item">
+                                <div class="result-meta-label">Status</div>
+                                <div class="result-meta-value">
+                                    <span class="status-pill" style="background:rgba(224,85,74,0.1);border-color:rgba(224,85,74,0.25);color:#e0554a;">⚠ Not Found</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="font-size:0.8rem;color:var(--ash);padding:12px 0;">No shipment found with this tracking number. Please check and try again or contact our support team at <strong>+41 22 555 0800</strong>.</p>
+                    `;
+                }
+            }
+
+            function setLoadingState() {
+                // Disable button and change text
+                trackBtn.disabled = true;
+                btnText.textContent = 'Searching…';
+                // Show loading spinner in result area
+                resultDiv.innerHTML = loadingHTML;
+                resultDiv.classList.add('active');
+                // Scroll to the loading indicator
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            function resetButton() {
+                trackBtn.disabled = false;
+                btnText.textContent = 'Track Now';
+            }
+
+            function handleTrack() {
+                const id = trackInput.value.trim().toUpperCase();
+                if (!id) {
+                    resultDiv.innerHTML = '<p style="font-size:0.8rem;color:var(--ash);padding:12px 0;">Please enter a tracking number.</p>';
+                    resultDiv.classList.add('active');
+                    return;
+                }
+
+                // Clear any previous timeout
+                if (searchTimeout) clearTimeout(searchTimeout);
+
+                // Start loading state
+                setLoadingState();
+
+                // Simulate network delay (1.5 seconds)
+                searchTimeout = setTimeout(() => {
+                    const isValid = (id === VALID_TRACKING_ID);
+                    resultDiv.innerHTML = buildResultHTML(isValid, id);
+                    resultDiv.classList.add('active');
+                    resetButton();
+
+                    if (isValid) {
+                        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }, 1500);
+            }
+
+            trackBtn.addEventListener('click', handleTrack);
+            trackInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') handleTrack();
+            });
+        })();
+    </script>
+</body>
+
+</html>
